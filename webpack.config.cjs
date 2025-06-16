@@ -1,6 +1,7 @@
 const path = require("path");
 const CopyPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const Dotenv = require("dotenv-webpack");
 
 module.exports = {
   target: "web",
@@ -26,6 +27,10 @@ module.exports = {
         },
       ],
     }),
+    new Dotenv({
+      path: path.resolve(__dirname, ".env.local"),
+      safe: false,
+    }),
   ],
   module: {
     rules: [
@@ -34,13 +39,6 @@ module.exports = {
         exclude: /node_modules/,
         use: {
           loader: "babel-loader",
-          options: {
-            presets: [
-              "@babel/preset-env",
-              ["@babel/preset-react", { runtime: "automatic" }],
-              "@babel/preset-typescript",
-            ],
-          },
         },
       },
     ],
