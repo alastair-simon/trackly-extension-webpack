@@ -14,6 +14,7 @@ export default function Dashboard({ init, loading }: DashboardProps) {
           justifyContent: "center",
           alignItems: "center",
           padding: "10px",
+          color: "white"
         }}
       >
         <h1>Trackly</h1>

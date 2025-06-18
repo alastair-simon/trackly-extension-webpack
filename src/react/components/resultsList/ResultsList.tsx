@@ -18,9 +18,9 @@ export default function ResultsList({ results }: any) {
         textAlign: "center",
       }}
     >
-      <p><b>{results.query}:</b></p>
+      <p><b>{results.query}</b></p>
       {results ? (
-        <ul style={{ listStyle: "none", margin: "0" }}>
+        <ul style={{ listStyle: "none", margin: "0", padding: "0" }}>
           {results.results.map((track: any) => (
             <li style={{ marginBottom: "10px" }} key={track.id}>
               <p>

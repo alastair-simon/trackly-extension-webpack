@@ -21,25 +21,30 @@ export default function Popup() {
   const init = async (): Promise<void> => {
     const tab = await getTab();
     const mixTitle = tab["title"].toLowerCase();
+    console.log("original title: ", mixTitle)
     setLoading(true);
     // const mixTitle = "stream leon vynehall fact | soundcloud";
 
     if (mixTitle.includes("soundcloud")) {
       // If its a soundcloud mix split the title by | and take the first part
-      const mixTitleShort = mixTitle.split(" | ")[0].slice(7).split(" by ")[0];
-      console.log("original title: ", mixTitleShort);
+      const mixTitleSplit = mixTitle.split(" | ")[0].slice(7).split(" by ")[0];
+      console.log("split title: ", mixTitleSplit);
+      const mixTitleClean = mixTitleSplit.replace(/[^a-zA-Z0-9 ]/g, "");
+      console.log("cleaned title: ", mixTitleClean);
 
       //Fetch the api data
-      const { data, loading } = await fetchTracklist(mixTitleShort);
+      const { data, loading } = await fetchTracklist(mixTitleClean);
       setResults(data);
       setLoading(loading);
     } else if (mixTitle.includes("youtube")) {
       // If its a youtube mix split the title by - and take the first part
-      const mixTitleShort = mixTitle.split(" - ")[0];
-      console.log("original title: ", mixTitleShort);
+      const mixTitleSplit = mixTitle.split(" - ")[0];
+      console.log("split title: ", mixTitleSplit);
+      const mixTitleClean = mixTitleSplit.replace(/[^a-zA-Z0-9 ]/g, "");
+      console.log("cleaned title: ", mixTitleClean);
 
       //Fetch the api data
-      const { data, loading } = await fetchTracklist(mixTitleShort);
+      const { data, loading } = await fetchTracklist(mixTitleClean);
       setResults(data);
       setLoading(loading);
     } else {
@@ -53,9 +58,6 @@ export default function Popup() {
       style={{
         width: "300px",
         height: "500px",
-        background: "white",
-        border: "1px solid rgb(220, 220, 220)",
-        borderRadius: "20px",
         padding: "30px",
         display: "flex",
         flexDirection: "column",

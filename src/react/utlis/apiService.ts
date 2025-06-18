@@ -3,7 +3,7 @@ export const fetchTracklist = async (searchQuery: string) => {
   console.log("fetch started...");
 
   const apiUrl = process.env.API_URL;
-  const formattedUrl = searchQuery.split(" ").join("-").toLowerCase();
+  const formattedUrl = searchQuery.trim().replace(/\s+/g, "-").toLowerCase();
   console.log("formatted title: ", formattedUrl);
 
   try {
