@@ -17,7 +17,7 @@ export default function Popup() {
     warm();
   }, []);
 
-  // Get tracklist from title query
+
   const init = async (): Promise<void> => {
     const tab = await getTab();
     const mixTitle = tab["title"].toLowerCase();
