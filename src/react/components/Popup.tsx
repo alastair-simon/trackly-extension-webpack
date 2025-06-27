@@ -7,13 +7,17 @@ import { fetchTracklist, warmServer } from "../utlis/apiService";
 export default function Popup() {
   const [results, setResults] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
+  const [serverWarm, setServerWarm] = useState<boolean>(true);
 
   // Warm up the server
   useEffect(() => {
+    setServerWarm(false);
     const warm = async () => {
-      await warmServer();
+      const res = await warmServer();
+      if (res) {
+        setServerWarm(true);
+      }
     };
-    console.log("warming up server...");
     warm();
   }, []);
 
@@ -27,7 +31,7 @@ export default function Popup() {
 
     if (mixTitle.includes("soundcloud")) {
       // If its a soundcloud mix split the title by | and take the first part
-      const mixTitleSplit = mixTitle.split(" | ")[0].slice(7).split(" by ")[0];
+      const mixTitleSplit = mixTitle.split(" | ")[0].slice(7);
       console.log("split title: ", mixTitleSplit);
       const mixTitleClean = mixTitleSplit.replace(/[^a-zA-Z0-9 ]/g, "");
       console.log("cleaned title: ", mixTitleClean);
@@ -62,11 +66,18 @@ export default function Popup() {
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
-        fontFamily: "monospace"
+        fontFamily: "monospace",
       }}
     >
-      <Dashboard init={init} loading={loading} />
-      <ResultsList results={results} />
+      {serverWarm ? (
+        <Dashboard init={init} loading={loading} />
+      ) : (
+        <div>
+          <p>warming up server...</p>
+        </div>
+      )}
+
+      {results.length > 0 ? <ResultsList results={results} /> : "no results"}
     </div>
   );
 }
