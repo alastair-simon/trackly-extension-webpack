@@ -1,9 +1,8 @@
 import { useEffect } from "react";
 
 export default function ResultsList({ results }: any) {
-
   useEffect(() => {
-    if(results) console.log(results.results);
+    if (results) console.log(results.results);
   }, [results]);
 
   return (
@@ -18,13 +17,28 @@ export default function ResultsList({ results }: any) {
         textAlign: "center",
       }}
     >
-      <p><b>{results.query}</b></p>
+      <p>
+        <b>{results.query}</b>
+      </p>
       {results ? (
         <ul style={{ listStyle: "none", margin: "0", padding: "0" }}>
           {results.results.map((track: any) => (
-            <li style={{ marginBottom: "10px" }} key={track.id}>
+            <li
+              style={{
+                marginBottom: "10px",
+                display: "flex",
+                flexDirection: "row",
+                gap: "10px",
+              }}
+              key={track.id}
+            >
+              <a href={track.link} target="_blank">
+                <img src={track.thumbnail} />
+              </a>
               <p>
-                {track.artist}: {track.track}
+                {track.artist}
+                <br />
+                {track.track}
               </p>
             </li>
           ))}
