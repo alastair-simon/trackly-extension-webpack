@@ -1,32 +1,11 @@
 import { useState, useEffect } from "react";
 import { fetchTracklist } from "../utlis/apiService";
 import { extractQuery } from "../utlis/extractQuery";
-
-// Define proper types
-interface TracklistResult {
-  query?: string;
-  results?: Array<{
-    id: string;
-    link: string;
-    thumbnail: string;
-    artist: string;
-    track: string;
-  }>;
-}
-
-interface UseGetTracklistReturn {
-  results: TracklistResult | string;
-  loading: boolean;
-  error: string | null;
-}
-
-const ERROR_MESSAGES = {
-  INVALID_PLATFORM: "Unsupported platform. Please use SoundCloud or YouTube.",
-  NO_TAB_FOUND: "No active tab found.",
-  INVALID_TITLE: "Invalid or empty title.",
-  API_ERROR: "Failed to fetch tracklist data.",
-  NETWORK_ERROR: "Network error occurred.",
-} as const;
+import {
+  TracklistResult,
+  UseGetTracklistReturn,
+  ERROR_MESSAGES,
+} from "../types";
 
 export default function useGetTracklist(tab: string): UseGetTracklistReturn {
   const [results, setResults] = useState<TracklistResult | string>("");
@@ -40,6 +19,7 @@ export default function useGetTracklist(tab: string): UseGetTracklistReturn {
         setLoading(true);
         setResults("");
 
+        // Extract the query from the tab
         const query = extractQuery(tab);
 
         if (!query) {
@@ -47,9 +27,9 @@ export default function useGetTracklist(tab: string): UseGetTracklistReturn {
         }
 
         // Fetch the API data
-        const { data, loading: apiLoading } = await fetchTracklist(query);
+        const { data, loading } = await fetchTracklist(query);
 
-        if (apiLoading) {
+        if (loading) {
           throw new Error(ERROR_MESSAGES.API_ERROR);
         }
 
