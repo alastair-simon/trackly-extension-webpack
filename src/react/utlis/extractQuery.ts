@@ -5,9 +5,7 @@ const PLATFORMS = {
 } as const;
 
 // Extract query based on platform
-export const extractQuery = (
-  title: string,
-): string | null => {
+export const extractQuery = (title: string): string | null => {
   if (!title || typeof title !== "string") {
     return null;
   }
@@ -18,7 +16,6 @@ export const extractQuery = (
     if (title.includes(PLATFORMS.SOUNDCLOUD)) {
       // If it's a soundcloud mix split the title by | and take the first part
       querySplit = title.split(" | ")[0].slice(7).trim();
-
     } else if (title.includes(PLATFORMS.YOUTUBE)) {
       // If it's a youtube mix split the title by - and take the first part
       querySplit = title.split(" - ")[0];
