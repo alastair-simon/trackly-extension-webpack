@@ -15,10 +15,10 @@ export const extractQuery = (title: string): string | null => {
     let querySplit: string;
 
     if (title.includes(PLATFORMS.SOUNDCLOUD)) {
-      // If it's a soundcloud mix split the title by | and take the first part
+      // If soundcloud mix split the title by | and take the first part
       querySplit = title.split(" | ")[0].slice(7).trim();
     } else if (title.includes(PLATFORMS.YOUTUBE)) {
-      // If it's a youtube mix split the title by - and take the first part
+      // If youtube mix split the title by - and take the first part
       querySplit = title.split(" - ")[0];
     } else {
       return null;
