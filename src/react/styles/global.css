@@ -101,3 +101,47 @@ code {
     font-size: 0.875em;
 }
 
+.trackly-popup__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.trackly-dashboard__container {
+    width: 360px;
+    height: 135px;
+    padding: 1rem;
+}
+
+.trackly-results-list__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.trackly-results-list__header {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+}
+
+.trackly-results-list__item {
+    width: 360px;
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.trackly-results-list__item-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.trackly-results-list__item-thumbnail {
+    width: 24px;
+    height: 24px;
+    border-radius: 5rem;
+}

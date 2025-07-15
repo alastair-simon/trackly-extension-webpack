@@ -1,46 +1,26 @@
+import { useState } from "react";
+import ResultsItem from "./ResultsItem";
+
 export default function ResultsList({ results }: any) {
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div
-      style={{
-        overflow: "auto",
-        height: "400px",
-        width: "100%",
-        background: "#ebebeb",
-        borderRadius: "20px",
-        padding: "10px",
-        textAlign: "center",
-      }}
-    >
-      <p>
-        <b>{results.query}</b>
-      </p>
-      {results ? (
-        <ul style={{ listStyle: "none", margin: "0", padding: "0" }}>
-          {results.results.map((track: any) => (
-            <li
-              style={{
-                marginBottom: "10px",
-                display: "flex",
-                flexDirection: "row",
-                gap: "10px",
-              }}
-              key={track.id}
-            >
-              <a href={track.link} target="_blank">
-                <img src={track.thumbnail} />
-              </a>
-              <p>
-                {track.artist}
-                <br />
-                {track.track}
-              </p>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        "no tracks found"
-      )}
+    <div className="trackly-results-list__container" style={{ height: isOpen ? "150px" : "10px" }}>
+      <div className="trackly-results-list__header">
+        <p className="trackly-results-list__arrow">^</p>
+        <button className="trackly-results-list__query" onClick={()=> setIsOpen(isOpen)}>{results.query}</button>
+      </div>
+      <div className="trackly-results-list__results">
+        {results ? (
+          <ul>
+            {results.results.map((track: any) => (
+              <ResultsItem key={track.id} track={track} />
+            ))}
+          </ul>
+        ) : (
+          "no tracks found"
+        )}
+      </div>
     </div>
   );
 }

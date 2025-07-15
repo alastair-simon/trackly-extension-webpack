@@ -5,22 +5,10 @@ interface DashboardProps {
 
 export default function Dashboard({ fetchTracklist, loading }: DashboardProps) {
   return (
-    <div>
-      <div
-        style={{
-          textAlign: "center",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          padding: "10px",
-          color: "white"
-        }}
-      >
+    <div className="trackly-dashboard__container">
         <h1>Trackly</h1>
         <button onClick={fetchTracklist}>Find tracklist</button>
         <p>{loading && "loading..."}</p>
-      </div>
     </div>
   );
 }

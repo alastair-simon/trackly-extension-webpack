@@ -26,7 +26,7 @@ export default function Popup() {
   };
 
   return (
-    <div className="container">
+    <div className="trackly-popup__container">
       <Dashboard fetchTracklist={fetchTracklistFromTab} loading={isLoading} />
       <ResultsList results={tracklistData} />
     </div>
