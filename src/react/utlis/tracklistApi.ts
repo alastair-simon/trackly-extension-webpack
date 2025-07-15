@@ -1,10 +1,10 @@
-// fetch a tracklist with a given query
+/*
+ * Fetches a tracklist with a given query
+ */
 export const fetchTracklist = async (searchQuery: string) => {
-  console.log("fetch started...");
-
   const apiUrl = process.env.API_URL;
+  // format the query to be used in the api
   const formattedUrl = searchQuery.trim().replace(/\s+/g, "-").toLowerCase();
-  console.log("formatted title: ", formattedUrl);
 
   try {
     const url = `${apiUrl}/api/search/${formattedUrl}`;
@@ -21,7 +21,9 @@ export const fetchTracklist = async (searchQuery: string) => {
   }
 };
 
-// warm up the server
+/*
+ * Warms up the server after a period of inactivity
+ */
 export const warmServer = async () => {
   const apiUrl = process.env.API_URL;
   const url = `${apiUrl}/api/warmup`;

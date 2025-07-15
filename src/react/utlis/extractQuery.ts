@@ -1,10 +1,11 @@
-// Constants for better maintainability
 const PLATFORMS = {
   SOUNDCLOUD: "soundcloud",
   YOUTUBE: "youtube",
 } as const;
 
-// Extract query based on platform
+/*
+ * Extracts the query from a given tab title
+ */
 export const extractQuery = (title: string): string | null => {
   if (!title || typeof title !== "string") {
     return null;
@@ -32,7 +33,9 @@ export const extractQuery = (title: string): string | null => {
   }
 };
 
-// Remove duplicate words from a string
+/*
+ * Removes duplicate words from a string
+ */
 export const removeDuplicateWords = (mixTitleClean: string) => {
   const words = mixTitleClean
     .split(/\s+/)
