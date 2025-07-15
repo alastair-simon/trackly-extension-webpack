@@ -1,7 +1,8 @@
-Results: {
- "query": "leon vynehall essential mix",
- "results": [
-   {
+{
+  "Results": {
+    "query": "leon vynehall essential mix",
+    "results": [
+      {
      "id": "db1505da-bd8b-4e16-8a62-7d2aa4881398",
      "artist": "Steve Reich",
      "track": "Come Out",
@@ -191,4 +192,5 @@ Results: {
      "thumbnail": ""
    }
  ]
+}
 }

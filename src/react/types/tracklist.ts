@@ -20,11 +20,11 @@ export interface TracklistResult {
      */
     track: string;
     /**
-     * The link to the track
+     * The link to the youtube video
      */
     link: string;
     /**
-     * The thumbnail of the track
+     * The thumbnail url of the track
      */
     thumbnail: string;
   }>;

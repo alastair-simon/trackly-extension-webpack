@@ -1,9 +1,4 @@
-import { useEffect } from "react";
-
 export default function ResultsList({ results }: any) {
-  useEffect(() => {
-    if (results) console.log(results.results);
-  }, [results]);
 
   return (
     <div

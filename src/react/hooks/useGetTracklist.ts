@@ -8,7 +8,7 @@ import {
 } from "../types";
 
 export default function useGetTracklist(tab: string): UseGetTracklistReturn {
-  const [results, setResults] = useState<TracklistResult | string>("");
+  const [results, setResults] = useState<TracklistResult | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -17,7 +17,7 @@ export default function useGetTracklist(tab: string): UseGetTracklistReturn {
       try {
         setError(null);
         setLoading(true);
-        setResults("");
+        setResults(null);
 
         // Extract the query from the tab
         const query = extractQuery(tab);
@@ -33,9 +33,9 @@ export default function useGetTracklist(tab: string): UseGetTracklistReturn {
           throw new Error(ERROR_MESSAGES.API_ERROR);
         }
 
-        // Validate API response
+        // Check API response
         if (!data || (Array.isArray(data) && data.length === 0)) {
-          setResults("No tracks found for this query.");
+          setResults(null);
         } else {
           setResults(data);
         }
@@ -43,7 +43,7 @@ export default function useGetTracklist(tab: string): UseGetTracklistReturn {
         const errorMessage =
           err instanceof Error ? err.message : ERROR_MESSAGES.API_ERROR;
         setError(errorMessage);
-        setResults(errorMessage);
+        setResults(null);
         console.error("useGetTracklist error:", err);
       } finally {
         setLoading(false);

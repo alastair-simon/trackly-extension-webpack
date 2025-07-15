@@ -1,9 +1,9 @@
 interface DashboardProps {
-  init: () => Promise<void>;
+  fetchTracklist: () => Promise<void>;
   loading: boolean;
 }
 
-export default function Dashboard({ init, loading }: DashboardProps) {
+export default function Dashboard({ fetchTracklist, loading }: DashboardProps) {
   return (
     <div>
       <div
@@ -18,7 +18,7 @@ export default function Dashboard({ init, loading }: DashboardProps) {
         }}
       >
         <h1>Trackly</h1>
-        <button onClick={init}>Find tracklist</button>
+        <button onClick={fetchTracklist}>Find tracklist</button>
         <p>{loading && "loading..."}</p>
       </div>
     </div>
