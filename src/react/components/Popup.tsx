@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 import Dashboard from "./dashboard/Dashboard";
 import ResultsList from "./resultsList/ResultsList";
 import { getTab } from "../utlis/chrome";
-import { fetchTracklist, warmServer } from "../utlis/apiService";
-import { removeDuplicateWords } from "../utlis/removeDuplicateWords";
+import { warmServer } from "../utlis/apiService";
+import useGetTracklist from "../hooks/useGetTracklist";
+
 export default function Popup() {
   const [serverWarm, setServerWarm] = useState<boolean>(true);
-  const [results, setResults] = useState<string>("");
+  const [results, setResults] = useState<any>(""); //todo: fix type
   const [loading, setLoading] = useState<boolean>(false);
 
   // Warm up the server
@@ -21,38 +22,20 @@ export default function Popup() {
     warm();
   }, []);
 
+  // Get the tracklist
   const init = async (): Promise<void> => {
-    const tab = await getTab();
-    const mixTitle = tab["title"].toLowerCase();
-    setLoading(true);
+    const currentTab = await getTab();
 
-    if (mixTitle.includes("soundcloud")) {
-      // If its a soundcloud mix split the title by | and take the first part
-      const querySplit = mixTitle.split(" | ")[0].slice(7);
-
-      // Remove duplicate words
-      const query = removeDuplicateWords(querySplit);
-
-      //Fetch the api data
-      const { data, loading } = await fetchTracklist(query);
-
-      setResults(data);
-      setLoading(loading);
-    } else if (mixTitle.includes("youtube")) {
-      // If its a youtube mix split the title by - and take the first part
-      const querySplit = mixTitle.split(" - ")[0];
-
-      // Remove duplicate words
-      const query = removeDuplicateWords(querySplit);
-
-      //Fetch the api data
-      const { data, loading } = await fetchTracklist(query);
-      setResults(data);
-      setLoading(loading);
-    } else {
-      setResults("wrong platform");
+    if (!currentTab || !currentTab.title) {
+      // throw new Error(ERROR_MESSAGES.NO_TAB_FOUND);
     }
+
+    const tabData = currentTab["title"].toLowerCase();
+    const { results, loading } = useGetTracklist(tabData);
+    setResults(results);
+    setLoading(loading);
   };
+
 
   return (
     <div

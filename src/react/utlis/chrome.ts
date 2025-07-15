@@ -16,4 +16,3 @@ export const getMixName = async (
   if (!response) return undefined;
   return response;
 };
-
